@@ -18,7 +18,6 @@ public class QuotesApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		var index = service.getIndex();
-		System.out.println(index);
+
 	}
 }
