@@ -31,27 +31,12 @@ public class IbashOrg_Parser {
         return quotes;
     }
 
-//    public Map<Integer, String> getRandomPage() {
-//        Map<Integer, String> quotes = new HashMap<>();
-//        try {
-//            Document doc = Jsoup.connect("http://ibash.org.ru/random.php").get();
-//            Elements sourceQuotes = doc.select(".quote");
-//            for (Element quoteElement : sourceQuotes) {
-//                int id = Integer.parseInt(Objects.requireNonNull(quoteElement
-//                        .select("b").first()).text().substring(1));
-//                String text = Objects.requireNonNull(quoteElement.select(".quotbody").first()).text();
-//                quotes.put(id, text);
-//            }
-//        } catch (IOException ignored) {
-//        }
-//        return quotes;
-//    }
-
     public Map.Entry<Integer, String> getRandom() {
         try {
             Document doc = Jsoup.connect("http://ibash.org.ru/random.php").get();
             Element quoteElement = doc.select(".quote").first();
-            String realId = quoteElement.select("b").first().text();
+            assert quoteElement != null;
+            String realId = Objects.requireNonNull(quoteElement.select("b").first()).text();
             if (realId.equals("#???")) {
                 return null;
             }
@@ -67,7 +52,8 @@ public class IbashOrg_Parser {
         try {
             Document doc = Jsoup.connect("http://ibash.org.ru/quote.php?id=" + id).get();
             Element quoteElement = doc.select(".quote").first();
-            String realId = quoteElement.select("b").first().text();
+            assert quoteElement != null;
+            String realId = Objects.requireNonNull(quoteElement.select("b").first()).text();
             if (realId.equals("#???")) {
                 return null;
             }
